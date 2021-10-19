@@ -1,49 +1,17 @@
-// console.log('hello world!')
+const fs = require('fs/promises');
 
-// Modulos core de Node.js
+// Promesas
+fs.readFile('saludo.txt', {encoding: 'utf8'})
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 
-// http (Crear un servidor o para poder hacer peticions a otros servidores)
-// fs (Manejo de archivos) {File System}
-// path (Construccion de rutas hacia los archivos o directorios)
-// events (Manejo de eventos)
-
-// importar un módulo en Node.js
-// const modulo = require('modulo');
-
-const fs = require('fs');
-
-// Leer un archivo con fs
-// <------- ... --------->
-// Para solicitudes asincronas
-fs.readFile('saludo.txt', {encoding: 'utf8'}, (err, data) => {
-    if (!err) {
+// Promesas async / await
+const readFileMeth = async() => {
+    try {
+        const data = await fs.readFile('saludo.txt', {encoding: 'utf8'});
         console.log(data);
-    }else{
-        console.log(err);
+    } catch (error) {
+        console.log(error);
     }
-})
-// Para operaciones sincronas
-const data = fs.readFileSync('saludo.txt', {encoding: 'utf8'})
-console.log(data);
-
-// Cambia el contenido del archivo
-fs.writeFile('saludo.txt', 'Yeah!', (err) => {
-    if (!err) {
-        console.log('Se ha escrito en el archivo');
-    }else {
-        console.log(err);
-    }
-})
-// fs.writeFileSync  <-------- método síncrono
-
-// Agrega contenido después del archivo
-fs.appendFile('saludo.txt', 'Agregamos mas prro!', (err) => {
-    if (!err) {
-        console.log('Se ha escrito en el archivo');
-    }else {
-        console.log(err);
-    }
-})
-// fs.appendFileSync <------------- método síncrono
-
-// ('\n' para salto de línea) 
+}
+readFileMeth();
